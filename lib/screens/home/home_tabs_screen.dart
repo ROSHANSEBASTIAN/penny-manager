@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:penny_manager/widgets/molecules/category/category_add_popup.dart';
 
 import '../../widgets/molecules/home/categories_fragment.dart';
 import '../../widgets/molecules/home/transactions_fragment.dart';
@@ -30,7 +31,7 @@ class HomeTabsScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => onFABPressed(),
+        onPressed: () => onFABPressed(context),
         child: const Icon(
           Icons.add,
           color: Colors.white,
@@ -40,7 +41,12 @@ class HomeTabsScreen extends StatelessWidget {
     );
   }
 
-  void onFABPressed() {
+  void onFABPressed(BuildContext context) {
     print("onFABPressed called");
+    if (homeTabIndexNotifier.value == 0) {
+      showCategoryAddPopup(context);
+    } else {
+      showCategoryAddPopup(context);
+    }
   }
 }

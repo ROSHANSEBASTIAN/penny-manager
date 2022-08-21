@@ -17,6 +17,7 @@ class CategoryModelAdapter extends TypeAdapter<CategoryModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return CategoryModel(
+      id: fields[3] as String,
       name: fields[0] as String,
       type: fields[1] as CategoryType,
       isDeleted: fields[2] as bool,
@@ -26,13 +27,15 @@ class CategoryModelAdapter extends TypeAdapter<CategoryModel> {
   @override
   void write(BinaryWriter writer, CategoryModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
       ..write(obj.type)
       ..writeByte(2)
-      ..write(obj.isDeleted);
+      ..write(obj.isDeleted)
+      ..writeByte(3)
+      ..write(obj.id);
   }
 
   @override
