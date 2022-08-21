@@ -17,7 +17,7 @@ class CategoryModelAdapter extends TypeAdapter<CategoryModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return CategoryModel(
-      id: fields[3] as String,
+      id: fields[3] as int,
       name: fields[0] as String,
       type: fields[1] as CategoryType,
       isDeleted: fields[2] as bool,

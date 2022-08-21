@@ -57,9 +57,9 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
 
 Future<void> addNewCategory(BuildContext dialogContext, String name) async {
   CategoryModel newCategory = CategoryModel(
-      name: name,
-      type: selectedCategory.value,
-      id: DateTime.now().millisecondsSinceEpoch.toString());
+    name: name,
+    type: selectedCategory.value,
+  );
   await CategoryDB().addCategoryToDB(newCategory);
   Navigator.of(dialogContext).pop();
 }

@@ -23,10 +23,10 @@ class CategoryModel {
   bool isDeleted;
 
   @HiveField(3)
-  String id;
+  int id;
 
   CategoryModel({
-    required this.id,
+    this.id = 0,
     required this.name,
     required this.type,
     this.isDeleted = false,

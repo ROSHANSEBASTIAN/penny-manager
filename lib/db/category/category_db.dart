@@ -24,9 +24,22 @@ class CategoryDB implements CategoryDBFunctions {
 
   @override
   Future<void> addCategoryToDB(CategoryModel newCategory) async {
-    print("New category, ID: ${newCategory.id}, NAME: ${newCategory.name}");
     final _categoryDB = await Hive.openBox<CategoryModel>(CATEGORY_DB_NAME);
-    _categoryDB.put(newCategory.id, newCategory);
+    int _newId = 0;
+    try {
+      final _lastCategory = _categoryDB.values.last;
+      if (_lastCategory.id == null) {
+        _newId = 0;
+      } else {
+        _newId = _lastCategory.id + 1;
+      }
+    } catch (e) {
+      _newId = 0;
+    }
+
+    newCategory.id = _newId;
+    print("New category, ID: ${_newId}, NAME: ${newCategory.name}");
+    _categoryDB.put(_newId, newCategory);
 
     if (newCategory.type == CategoryType.expense) {
       expenseListNotifier.value.add(newCategory);
@@ -67,16 +80,16 @@ class CategoryDB implements CategoryDBFunctions {
   }
 
   Future<void> deleteCategory(CategoryModel selCategory) async {
-    // final _categoryDB = await Hive.openBox<CategoryModel>(CATEGORY_DB_NAME);
-    // _categoryDB.delete(selCategory.id);
-    // if (selCategory.type == CategoryType.expense) {
-    //   expenseListNotifier.value
-    //       .removeWhere((element) => element.id == selCategory.id);
-    //   expenseListNotifier.notifyListeners();
-    // } else {
-    //   incomeListNotifier.value
-    //       .removeWhere((element) => element.id == selCategory.id);
-    //   incomeListNotifier.notifyListeners();
-    // }
+    final _categoryDB = await Hive.openBox<CategoryModel>(CATEGORY_DB_NAME);
+    _categoryDB.delete(selCategory.id);
+    if (selCategory.type == CategoryType.expense) {
+      expenseListNotifier.value
+          .removeWhere((element) => element.id == selCategory.id);
+      expenseListNotifier.notifyListeners();
+    } else {
+      incomeListNotifier.value
+          .removeWhere((element) => element.id == selCategory.id);
+      incomeListNotifier.notifyListeners();
+    }
   }
 }
