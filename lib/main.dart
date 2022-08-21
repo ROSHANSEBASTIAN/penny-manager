@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:penny_manager/constants/route_names.dart';
+import 'package:penny_manager/screens/transactions/add_transaction_screen.dart';
 
 import './db/utils.dart';
 import './screens/home/home_tabs_screen.dart';
@@ -18,6 +20,7 @@ class PennyManager extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: HomeTabsScreen(),
+      routes: {addTransactionScreenRoute: (ctx) => AddTransactionScreen()},
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),

@@ -17,7 +17,7 @@ class ExpenseTab extends StatelessWidget {
               child: ListTile(
                 title: Text(expenseList[index].name),
                 trailing: IconButton(
-                  onPressed: () => expenseDeleteHandler(),
+                  onPressed: () => expenseDeleteHandler(expenseList[index]),
                   icon: const Icon(
                     Icons.delete,
                     color: Colors.red,
@@ -34,7 +34,7 @@ class ExpenseTab extends StatelessWidget {
         });
   }
 
-  void expenseDeleteHandler() {
-    print("expenseDeleteHandler");
+  void expenseDeleteHandler(CategoryModel selCategory) {
+    CategoryDB.instance.deleteCategory(selCategory);
   }
 }

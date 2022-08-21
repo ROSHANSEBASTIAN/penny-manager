@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:penny_manager/widgets/molecules/category/category_add_popup.dart';
 
+import '../../constants/route_names.dart';
+import '../../widgets/molecules/category/category_add_popup.dart';
 import '../../widgets/molecules/home/categories_fragment.dart';
 import '../../widgets/molecules/home/transactions_fragment.dart';
 import '../../widgets/molecules/navigation/penny_manager_bottom_navigation.dart';
@@ -9,7 +10,10 @@ class HomeTabsScreen extends StatelessWidget {
   HomeTabsScreen({Key? key}) : super(key: key);
 
   static ValueNotifier<int> homeTabIndexNotifier = ValueNotifier(0);
-  final _fragments = [TransactionsFragment(), CategoriesFragment()];
+  final _fragments = [
+    const TransactionsFragment(),
+    const CategoriesFragment(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +47,10 @@ class HomeTabsScreen extends StatelessWidget {
 
   void onFABPressed(BuildContext context) {
     print("onFABPressed called");
-    if (homeTabIndexNotifier.value == 0) {
+    if (homeTabIndexNotifier.value == 1) {
       showCategoryAddPopup(context);
     } else {
-      showCategoryAddPopup(context);
+      Navigator.of(context).pushNamed(addTransactionScreenRoute);
     }
   }
 }
