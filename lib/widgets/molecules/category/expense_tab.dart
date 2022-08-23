@@ -9,7 +9,7 @@ class ExpenseTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-        valueListenable: expenseListNotifier,
+        valueListenable: CategoryDB.instance.expenseListNotifier,
         builder:
             (BuildContext context, List<CategoryModel> expenseList, Widget? _) {
           return ListView.separated(

@@ -1,5 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../model/transaction_model.dart';
 import '../model/category_model.dart';
 
 // to initialize Hive DB and to register its adapters
@@ -14,5 +15,9 @@ Future<void> initializeHiveDB() async {
 
   if (!Hive.isAdapterRegistered(CategoryModelAdapter().typeId)) {
     Hive.registerAdapter(CategoryModelAdapter());
+  }
+
+  if (!Hive.isAdapterRegistered(TransactionModelAdapter().typeId)) {
+    Hive.registerAdapter(TransactionModelAdapter());
   }
 }

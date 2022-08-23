@@ -10,10 +10,10 @@ abstract class CategoryDBFunctions {
 
 const String CATEGORY_DB_NAME = "category_db";
 
-ValueNotifier<List<CategoryModel>> incomeListNotifier = ValueNotifier([]);
-ValueNotifier<List<CategoryModel>> expenseListNotifier = ValueNotifier([]);
-
 class CategoryDB implements CategoryDBFunctions {
+  ValueNotifier<List<CategoryModel>> incomeListNotifier = ValueNotifier([]);
+  ValueNotifier<List<CategoryModel>> expenseListNotifier = ValueNotifier([]);
+
   CategoryDB._internal(); // This is another way of creating constructors in dart. Named construcotr
 
   static CategoryDB instance = CategoryDB._internal();

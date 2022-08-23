@@ -9,7 +9,7 @@ class IncomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-        valueListenable: incomeListNotifier,
+        valueListenable: CategoryDB.instance.incomeListNotifier,
         builder:
             (BuildContext context, List<CategoryModel> incomeList, Widget? _) {
           return ListView.separated(
