@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../model/category_model.dart';
-import '../../../db/category/category_db.dart';
 import '../category/expense_tab.dart';
 import '../category/income_tab.dart';
 
@@ -19,14 +17,7 @@ class _CategoriesFragmentState extends State<CategoriesFragment>
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
-    print("getCategoriesListFromDB");
-    getCategoriesListFromDB();
     super.initState();
-  }
-
-  Future<void> getCategoriesListFromDB() async {
-    print("getCategoriesListFromDB 2");
-    await CategoryDB().refreshCategroryListNotifiers();
   }
 
   @override

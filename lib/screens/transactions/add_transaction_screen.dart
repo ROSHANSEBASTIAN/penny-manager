@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:penny_manager/db/transactions/transaction_db.dart';
-import 'package:penny_manager/model/transaction_model.dart';
-import 'package:penny_manager/widgets/molecules/category/category_add_popup.dart';
 
+import '../../db/transactions/transaction_db.dart';
+import '../../model/transaction_model.dart';
 import '../../db/category/category_db.dart';
 import '../../model/category_model.dart';
 
@@ -47,6 +46,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               height: 50,
             ),
             TextFormField(
+              controller: _purposeController,
               keyboardType: TextInputType.name,
               decoration: const InputDecoration(
                 labelText: "Purpose",
@@ -64,6 +64,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               height: 20,
             ),
             TextFormField(
+              controller: _amountController,
               keyboardType:
                   const TextInputType.numberWithOptions(decimal: true),
               decoration: const InputDecoration(
@@ -156,7 +157,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               height: 20,
             ),
             ElevatedButton(
-              onPressed: addOrEditTransaction,
+              onPressed: () => addOrEditTransaction(context),
               child: const Text(
                 "Add",
                 style: TextStyle(color: Colors.white),
@@ -182,19 +183,37 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     }
   }
 
-  Future<void> addOrEditTransaction() async {
+  Future<void> addOrEditTransaction(BuildContext context) async {
+    print("Adding data to Hive DB 1");
+    print(_purposeController.text.trim());
+    print(_amountController.text.trim());
+    print(_selCategory);
+    print(_selCategoryType);
+    print(_selDate);
+
     if (_purposeController.text.trim().isEmpty ||
         _amountController.text.trim().isEmpty ||
         _selCategory == null ||
         _selCategoryType == null ||
         _selDate == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("All fields are mandatory"),
+        ),
+      );
       return;
     }
+    print("Adding data to Hive DB 2");
     double _parsedAmount = double.parse(_amountController.text.trim());
     if (_parsedAmount == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Please check your amount"),
+        ),
+      );
       return;
     }
-
+    print("Adding data to Hive DB 3");
     TransactionModel transactionModel = TransactionModel(
       id: DateTime.now().microsecondsSinceEpoch.toString(),
       purpose: _purposeController.text.trim(),
@@ -203,7 +222,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       categoryType: _selCategoryType!,
       categoryModel: _selCategory!,
     );
-    print("Adding data to Hive DB");
+    print("Adding data to Hive DB 4");
     TransactionDB.instance.addTransaction(transactionModel);
+    print("Adding data to Hive DB 5");
+    Navigator.of(context).pop();
   }
 }
